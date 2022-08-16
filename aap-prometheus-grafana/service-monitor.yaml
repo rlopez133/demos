@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ansiblecontroller-monitor
+  labels:
+    team: frontend
+  namespace: prometheus-operator
+spec:
+  namespaceSelector:
+    matchNames:
+      - ansible-automation-platform
+  selector:
+    matchLabels:
+      monitor: metrics
+  endpoints:
+    - interval: 5s
+      path: /api/v2/metrics
+      scheme: http
+      bearerTokenSecret:
+        name: bearertoken
+        key: secret
