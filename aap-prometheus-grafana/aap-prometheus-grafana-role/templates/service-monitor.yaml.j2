@@ -4,14 +4,14 @@ metadata:
   name: ansiblecontroller-monitor
   labels:
     team: frontend
-  namespace: {{ prometheus-namespace }}
+  namespace: {{ prometheus_namespace }}
 spec:
   namespaceSelector:
     matchNames:
-      - {{ ansible-namespace }}
+      - {{ ansible_namespace }}
   selector:
     matchLabels:
-      monitor: {{ monitor-value }}
+      monitor: {{ monitor_value }}
   endpoints:
     - interval: 5s
       path: /api/v2/metrics

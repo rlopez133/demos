@@ -3,7 +3,7 @@
   kubernetes.core.k8s_info:
     api_version: route.openshift.io/v1
     kind: Route
-    namespace: "{{ ansible-namespace }}"
+    namespace: "{{ ansible_namespace }}"
   register: automationcontroller_route
 
 - name: Set fact of domain 
@@ -13,4 +13,4 @@
 - name: Expose prometheus-operated service
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', 'prometheus-operated-route.yaml.j2') }}"
+    template: "prometheus-operated-route.yaml.j2"

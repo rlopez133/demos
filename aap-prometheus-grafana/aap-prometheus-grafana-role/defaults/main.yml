@@ -1,2 +1,5 @@
 ---
 # defaults file for aap-prometheus-grafana-role
+prometheus_namespace: prometheus-operator
+ansible_namespace: ansible-automation-platform
+monitor_value: metrics

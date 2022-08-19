@@ -1,0 +1,211 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+  name: prometheus-operator
+  generation: 1
+  namespace: prometheus-operator
+  ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      kind: ClusterServiceVersion
+      name: prometheusoperator.0.56.3
+      controller: false
+      blockOwnerDeletion: false
+  labels:
+    olm.deployment-spec-hash: 855fc7c58d
+    olm.owner: prometheusoperator.0.56.3
+    olm.owner.kind: ClusterServiceVersion
+    olm.owner.namespace: prometheus-operator
+    operators.coreos.com/prometheus.prometheus-operator: ''
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: prometheus-operator
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/component: controller
+        app.kubernetes.io/name: prometheus-operator
+        app.kubernetes.io/version: 0.56.3
+        k8s-app: prometheus-operator
+      annotations:
+        certified: 'false'
+        olm.targetNamespaces: prometheus-operator
+        operatorframework.io/properties: >-
+          {"properties":[{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"ThanosRuler","version":"v1"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"AlertmanagerConfig","version":"v1alpha1"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"Probe","version":"v1"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"Prometheus","version":"v1"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"PrometheusRule","version":"v1"}},{"type":"olm.package","value":{"packageName":"prometheus","version":"0.56.3"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"ServiceMonitor","version":"v1"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"Alertmanager","version":"v1"}},{"type":"olm.gvk","value":{"group":"monitoring.coreos.com","kind":"PodMonitor","version":"v1"}}]}
+        repository: 'https://github.com/prometheus-operator/prometheus-operator'
+        alm-examples: |-
+          [
+            {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "Prometheus",
+              "metadata": {
+                "name": "example"
+              },
+              "spec": {
+                "replicas": 2,
+                "serviceAccountName": "prometheus-k8s",
+                "serviceMonitorSelector": {},
+                "ruleSelector": {},
+                "podMonitorSelector": {},
+                "probeSelector": {},
+                "alerting": {
+                  "alertmanagers": [
+                    {
+                      "namespace": "monitoring",
+                      "name": "alertmanager-main",
+                      "port": "web"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "metadata": {
+                "name": "example"
+              },
+              "spec": {
+                "selector": {
+                  "matchLabels": {
+                    "operated-prometheus": "true"
+                  }
+                },
+                "endpoints": [
+                  {
+                    "port": "web",
+                    "interval": "30s"
+                  }
+                ]
+              }
+            },
+            {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PodMonitor",
+              "metadata": {
+                "name": "example"
+              },
+              "spec": {
+                "selector": {
+                  "matchLabels": {
+                    "app": "prometheus"
+                  }
+                },
+                "podMetricsEndpoints": [
+                  {
+                    "port": "web",
+                    "interval": "30s"
+                  }
+                ]
+              }
+            },
+            {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "Alertmanager",
+              "metadata": {
+                "name": "alertmanager-main"
+              },
+              "spec": {
+                "replicas": 3,
+                "alertmanagerConfigSelector": {}
+              }
+            },
+            {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "metadata": {
+                "name": "prometheus-example-rules"
+              },
+              "spec": {
+                "groups": [
+                  {
+                    "name": "./example.rules",
+                    "rules": [
+                      {
+                        "alert": "ExampleAlert",
+                        "expr": "vector(1)"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "apiVersion": "monitoring.coreos.com/v1alpha1",
+              "kind": "AlertmanagerConfig",
+              "metadata": {
+                "name": "example"
+              },
+              "spec": {
+                "receivers": [
+                  {
+                    "name": "example"
+                  }
+                ],
+                "route": {
+                  "receiver": "example"
+                }
+              }
+            }
+          ]
+        capabilities: Deep Insights
+        olm.operatorNamespace: prometheus-operator
+        containerImage: 'quay.io/prometheus-operator/prometheus-operator:v0.56.3'
+        createdAt: '2022-05-24T9:40:00Z'
+        categories: Monitoring
+        description: >-
+          Manage the full lifecycle of configuring and managing Prometheus and
+          Alertmanager servers.
+        olm.operatorGroup: prometheus-operator-bgnhk
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      restartPolicy: Always
+      serviceAccountName: prometheus-operator
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          name: prometheus-operator
+          env:
+            - name: NAMESPACES
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: 'metadata.annotations[''olm.targetNamespaces'']'
+            - name: OPERATOR_CONDITION_NAME
+              value: prometheusoperator.0.56.3
+          securityContext:
+            allowPrivilegeEscalation: false
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          terminationMessagePolicy: File
+          image: 'quay.io/prometheus-operator/prometheus-operator:v0.56.3'
+          args:
+            - '-namespaces=$(NAMESPACES)'
+            - >-
+              --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.56.3
+      serviceAccount: prometheus-operator
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 1
+  progressDeadlineSeconds: 600

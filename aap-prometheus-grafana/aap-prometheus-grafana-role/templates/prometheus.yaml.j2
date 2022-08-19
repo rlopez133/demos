@@ -4,7 +4,7 @@ metadata:
   name: prometheus
   labels:
     prometheus: k8s
-  namespace: {{ prometheus-namespace }}
+  namespace: {{ prometheus_namespace }}
 spec:
   replicas: 2
   serviceAccountName: prometheus
@@ -18,6 +18,6 @@ spec:
       prometheus: k8s
   alerting:
     alertmanagers:
-      - namespace: {{ prometheus-namespace }}
+      - namespace: {{ prometheus_namespace }}
         name: alertmanager-main
         port: web

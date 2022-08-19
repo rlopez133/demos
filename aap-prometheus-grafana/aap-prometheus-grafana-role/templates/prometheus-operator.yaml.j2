@@ -1,0 +1,25 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  generation: 1
+  labels:
+    operators.coreos.com/prometheus.prometheus-operator: ''
+  name: prometheus
+  namespace: {{ prometheus_namespace }}
+spec:
+  channel: beta
+  installPlanApproval: Automatic
+  name: prometheus
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: Alertmanager.v1.monitoring.coreos.com,AlertmanagerConfig.v1alpha1.monitoring.coreos.com,Grafana.v1alpha1.integreatly.org,GrafanaDashboard.v1alpha1.integreatly.org,GrafanaDataSource.v1alpha1.integreatly.org,GrafanaNotificationChannel.v1alpha1.integreatly.org,PodMonitor.v1.monitoring.coreos.com,Probe.v1.monitoring.coreos.com,Prometheus.v1.monitoring.coreos.com,PrometheusRule.v1.monitoring.coreos.com,ServiceMonitor.v1.monitoring.coreos.com,ThanosRuler.v1.monitoring.coreos.com  
+  namespace: prometheus-operator
+  name: prometheus-operator-bhhk
+spec:
+  targetNamespaces:
+  - {{ prometheus_namespace }}

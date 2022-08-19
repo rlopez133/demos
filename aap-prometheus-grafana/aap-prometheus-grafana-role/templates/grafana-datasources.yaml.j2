@@ -2,7 +2,7 @@ apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDataSource
 metadata:
   name: grafana-datasource
-  namespace: {{ prometheus-namespace }}
+  namespace: {{ prometheus_namespace }}
 spec:
   datasources:
     - access: proxy

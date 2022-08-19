@@ -1,0 +1,15 @@
+---
+- name: Install Grafana Operator
+  kubernetes.core.k8s:
+    state: present
+    template: "grafana-operator.yaml.j2"
+
+- name: Wait for Grafana Operator to deploy 
+  kubernetes.core.k8s_info:
+    kind: Deployment
+    namespace: "{{ prometheus_namespace }}"
+    name: grafana-operator-controller-manager
+    wait: yes
+    wait_condition:
+      type: Available
+      status: True

@@ -2,5 +2,5 @@
 - name: Create service-monitor.yaml file
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', 'service-monitor.yaml.j2') }}"
+    template: "service-monitor.yaml.j2"
 - 

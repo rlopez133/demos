@@ -2,7 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: prometheus-operated
-  namespace: {{ prometheus-namespace }}
+  namespace: {{ prometheus_namespace }}
   labels:
     operated-prometheus: 'true'
 spec:

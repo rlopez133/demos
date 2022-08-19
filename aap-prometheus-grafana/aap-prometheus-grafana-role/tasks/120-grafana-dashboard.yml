@@ -2,4 +2,4 @@
 - name: Apply the Grafana AAP Dashboard
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('template', 'grafana-dashboard.yaml.j2') }}"
+    template: "grafana-dashboard.yaml.j2"

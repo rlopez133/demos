@@ -1,7 +1,15 @@
 ---
 # tasks file for aap-prometheus-grafana-role
-#- include_tasks: 10-create-bearer-token.yml
-#- include_tasks: 30-create-bearer-token-secret.yml
-#- include_tasks: 40-create-controller-svc-label.yml
-#- include_tasks: 80-expose-prometheus-operated-svc.yml
+- include_tasks: 10-create-bearer-token.yml
+- include_tasks: 20-install-prometheus-operator.yml
+- include_tasks: 30-create-bearer-token-secret.yml
+- include_tasks: 40-create-controller-svc-label.yml
+- include_tasks: 50-service-monitor.yml
+- include_tasks: 60-service-account.yml
+- include_tasks: 70-install-prometheus.yml
+- include_tasks: 80-expose-prometheus-operated-svc.yml
+- include_tasks: 90-install-grafana-operator.yml
+- include_tasks: 100-grafana-datasources.yml
+- include_tasks: 110-grafana-instance.yml
+- include_tasks: 120-grafana-dashboard.yml
 - include_tasks: 130-print-routes-passwords.yml

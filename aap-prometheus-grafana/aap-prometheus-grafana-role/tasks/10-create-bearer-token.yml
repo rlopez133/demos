@@ -1,7 +1,33 @@
 ---
+- name: Get controller host
+  kubernetes.core.k8s_info:
+    api_version: route.openshift.io/v1
+    kind: Route
+    namespace: "{{ ansible_namespace }}"
+  register: controller_host
+
+- name: Get automation controller name
+  kubernetes.core.k8s_info:
+    api_version: automationcontroller.ansible.com/v1beta1
+    kind: AutomationController
+    namespace: "{{ ansible_namespace }}"
+  register: automationcontroller_list
+
+- name: Get AAP admin Password
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Secret
+    name: "{{ automationcontroller_list | community.general.json_query('resources[0].metadata.name') }}-admin-password"
+    namespace: "{{ ansible_namespace }}"
+  register: aap_admin_password
+
+- name: Set fact for Ansible password b64decoded
+  ansible.builtin.set_fact:
+    ansible_password: "{{ aap_admin_password | community.general.json_query('resources[0].data.password') | b64decode }}"
+
 - name: Create a Bearer Token
   ansible.builtin.uri:
-    url: "https://{{ username }}:{{ password }}@{{ controller_host }}/api/v2/users/{{ user_id }}/personal_tokens/"
+    url: "https://admin:{{ ansible_password }}@{{ controller_host.resources[0].spec.host }}/api/v2/users/1/personal_tokens/"
     method: POST
     headers:
       content-type: application/json
