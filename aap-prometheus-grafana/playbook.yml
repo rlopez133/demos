@@ -1,0 +1,7 @@
+---
+- name: Monitoring Automation Controller with Prometheus + Grafana
+  hosts: localhost
+  collections:
+    - kubernetes.core
+  roles:
+  - aap-prometheus-grafana-role
