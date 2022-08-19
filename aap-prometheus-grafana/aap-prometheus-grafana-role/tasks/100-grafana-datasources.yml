@@ -1,0 +1,5 @@
+---
+- name: Apply the Grafana datasource
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'grafana-datasources.yaml.j2') }}"

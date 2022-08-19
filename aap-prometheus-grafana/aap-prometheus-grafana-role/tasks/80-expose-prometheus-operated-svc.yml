@@ -1,0 +1,16 @@
+---
+- name: Get automation controller route name
+  kubernetes.core.k8s_info:
+    api_version: route.openshift.io/v1
+    kind: Route
+    namespace: "{{ ansible-namespace }}"
+  register: automationcontroller_route
+
+- name: Set fact of domain 
+  ansible.builtin.set_fact:
+    domain: "{{ automationcontroller_route.resources[0].status.ingress[0].routerCanonicalHostname | regex_search('router-default.(.+)', '\\1') | first  }}"
+
+- name: Expose prometheus-operated service
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'prometheus-operated-route.yaml.j2') }}"

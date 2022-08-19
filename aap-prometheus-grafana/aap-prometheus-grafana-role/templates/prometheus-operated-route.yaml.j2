@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: prometheus-operated
+  namespace: {{ prometheus-namespace }}
+  labels:
+    operated-prometheus: 'true'
+spec:
+  host: prometheus-operated-prometheus-operator.{{ domain }}
+  to:
+    kind: Service
+    name: prometheus-operated
+    weight: 100
+  port:
+    targetPort: web

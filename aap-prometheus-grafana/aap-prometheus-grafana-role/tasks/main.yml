@@ -1,0 +1,7 @@
+---
+# tasks file for aap-prometheus-grafana-role
+#- include_tasks: 10-create-bearer-token.yml
+#- include_tasks: 30-create-bearer-token-secret.yml
+#- include_tasks: 40-create-controller-svc-label.yml
+#- include_tasks: 80-expose-prometheus-operated-svc.yml
+- include_tasks: 130-print-routes-passwords.yml

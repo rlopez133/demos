@@ -1,0 +1,19 @@
+---
+- name: Create a Bearer Token
+  ansible.builtin.uri:
+    url: "https://{{ username }}:{{ password }}@{{ controller_host }}/api/v2/users/{{ user_id }}/personal_tokens/"
+    method: POST
+    headers:
+      content-type: application/json
+      Accept: application/json
+    body: '{"description":"Personal Tower CLI token", "application":null, "scope":"read"}'
+    body_format: json
+    validate_certs: no
+    return_content: yes
+    force_basic_auth: yes
+    status_code: 201
+  register: token_result
+
+- name: Bearer Token Value
+  debug:
+    msg: "{{ token_result.json.token }}"

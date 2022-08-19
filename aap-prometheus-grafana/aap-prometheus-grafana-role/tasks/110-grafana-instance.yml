@@ -1,0 +1,5 @@
+---
+- name: Install the Grafana instance
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'grafana.yaml.j2') }}"
