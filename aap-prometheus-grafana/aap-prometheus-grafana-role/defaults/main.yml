@@ -3,3 +3,5 @@
 prometheus_namespace: prometheus-operator
 ansible_namespace: ansible-automation-platform
 monitor_value: metrics
+user_id: "1"
+username: "admin"

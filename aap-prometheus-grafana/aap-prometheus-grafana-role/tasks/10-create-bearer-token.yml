@@ -27,7 +27,7 @@
 
 - name: Create a Bearer Token
   ansible.builtin.uri:
-    url: "https://admin:{{ ansible_password }}@{{ controller_host.resources[0].spec.host }}/api/v2/users/1/personal_tokens/"
+    url: "https://{{ username }}:{{ ansible_password }}@{{ controller_host.resources[0].spec.host }}/api/v2/users/{{ user_id }}/personal_tokens/"
     method: POST
     headers:
       content-type: application/json
