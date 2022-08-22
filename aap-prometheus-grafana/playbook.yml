@@ -3,5 +3,6 @@
   hosts: localhost
   collections:
     - kubernetes.core
+    - community.general
   roles:
     - aap-prometheus-grafana-role
