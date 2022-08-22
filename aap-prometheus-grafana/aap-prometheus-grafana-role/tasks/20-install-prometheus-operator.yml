@@ -16,7 +16,7 @@
     kind: Deployment
     namespace: "{{ prometheus_namespace }}"
     name: prometheus-operator
-    wait: yes
+    wait: true
     wait_condition:
       type: Available
       status: True

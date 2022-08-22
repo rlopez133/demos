@@ -3,4 +3,4 @@
   kubernetes.core.k8s:
     state: present
     template: "service-monitor.yaml.j2"
-- 
+-

@@ -1,5 +1,5 @@
 ---
-#Assumption svc name is controllername-service
+# Assumption svc name is controllername-service
 - name: Create the monitor metrics label
   kubernetes.core.k8s:
     state: present

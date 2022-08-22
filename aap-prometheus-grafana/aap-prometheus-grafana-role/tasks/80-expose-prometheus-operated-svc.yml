@@ -6,9 +6,9 @@
     namespace: "{{ ansible_namespace }}"
   register: automationcontroller_route
 
-- name: Set fact of domain 
+- name: Set fact of domain
   ansible.builtin.set_fact:
-    domain: "{{ automationcontroller_route.resources[0].status.ingress[0].routerCanonicalHostname | regex_search('router-default.(.+)', '\\1') | first  }}"
+    domain: "{{ automationcontroller_route.resources[0].status.ingress[0].routerCanonicalHostname | regex_search('router-default.(.+)', '\\1') | first }}"
 
 - name: Expose prometheus-operated service
   kubernetes.core.k8s:

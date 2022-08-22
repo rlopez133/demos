@@ -4,4 +4,4 @@
   collections:
     - kubernetes.core
   roles:
-  - aap-prometheus-grafana-role
+    - aap-prometheus-grafana-role

@@ -4,7 +4,7 @@
     state: present
     template: "grafana-operator.yaml.j2"
 
-- name: Wait for Grafana Operator to deploy 
+- name: Wait for Grafana Operator to deploy
   kubernetes.core.k8s_info:
     kind: Deployment
     namespace: "{{ prometheus_namespace }}"

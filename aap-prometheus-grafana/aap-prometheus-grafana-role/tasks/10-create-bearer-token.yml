@@ -34,12 +34,12 @@
       Accept: application/json
     body: '{"description":"Personal Tower CLI token", "application":null, "scope":"read"}'
     body_format: json
-    validate_certs: no
-    return_content: yes
-    force_basic_auth: yes
+    validate_certs: false
+    return_content: true
+    force_basic_auth: true
     status_code: 201
   register: token_result
 
 - name: Bearer Token Value
-  debug:
+  ansible.builtin.debug:
     msg: "{{ token_result.json.token }}"
