@@ -5,3 +5,5 @@ ansible_namespace: ansible-automation-platform
 monitor_value: metrics
 user_id: "1"
 username: "admin"
+prometheus_catalog_source: community-operators
+grafana_catalog_source: community-operators

@@ -10,7 +10,7 @@ spec:
   channel: beta
   installPlanApproval: Automatic
   name: prometheus
-  source: community-operators
+  source: {{ prometheus_catalog_source }}
   sourceNamespace: openshift-marketplace
 ---
 apiVersion: operators.coreos.com/v1
