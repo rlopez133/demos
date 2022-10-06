@@ -1,0 +1,13 @@
+---
+- name: GitOps Playbook
+  hosts: localhost
+  collections:
+    - amazon.aws
+    - rlopez.fest_demo
+    - kubernetes.core
+    - ansible.utils
+    - community.general
+
+  roles:
+  #- rlopez.fest_demo.aws
+  - {role: rlopez.fest_demo.aws, when: my_name is defined}
