@@ -3,11 +3,12 @@
   amazon.aws.ec2_instance:
     state: "absent"
     instance_ids: "{{ paths['instances[0].instance_id'] }}"
+    region: "{{ region }}"
   ignore_errors: true
 
 - name: Terminate instances that were previously launched
   amazon.aws.ec2_instance:
     state: "absent"
-    instance_tags:
+    tags:
       Name: "{{ paths['instances[0].tags.Name'] }}"
   ignore_errors: true
