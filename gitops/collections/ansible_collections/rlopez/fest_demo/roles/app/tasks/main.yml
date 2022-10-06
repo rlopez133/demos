@@ -1,0 +1,3 @@
+---
+# tasks file for app
+- include_tasks: 10_app_create.yml
