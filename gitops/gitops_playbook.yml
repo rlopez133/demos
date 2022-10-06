@@ -7,7 +7,9 @@
     - kubernetes.core
     - ansible.utils
     - community.general
+    - containers.podman
 
   roles:
   #- rlopez.fest_demo.aws
   - {role: rlopez.fest_demo.aws, when: my_name is defined}
+  - {role: rlopez.fest_demo.app}

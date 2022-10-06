@@ -2,4 +2,4 @@
 # tasks file for aws
 - include_tasks: 10_create_ec2.yml
 - include_tasks: 20_slack_notification.yml
-- include_tasks: 30_delete_ec2.yml
+#- include_tasks: 30_delete_ec2.yml
