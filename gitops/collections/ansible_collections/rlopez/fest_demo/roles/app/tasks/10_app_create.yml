@@ -9,4 +9,3 @@
         - "{{ host_port }}:{{ container_port }}"
     env:
         APP_COLOR: "{{ color }}"
-        tree: "{{ tree }}"
