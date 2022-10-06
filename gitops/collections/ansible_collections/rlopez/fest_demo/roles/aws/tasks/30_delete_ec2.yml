@@ -1,0 +1,13 @@
+---
+- name: Terminate instances that were previously launched
+  amazon.aws.ec2:
+    state: "absent"
+    instance_ids: "{{ paths['instances[0].instance_id'] }}"
+  ignore_errors: true
+
+- name: Terminate instances that were previously launched
+  amazon.aws.ec2:
+    state: "absent"
+    instance_tags:
+      Name: "{{ paths['instances[0].tags.Name'] }}"
+  ignore_errors: true
