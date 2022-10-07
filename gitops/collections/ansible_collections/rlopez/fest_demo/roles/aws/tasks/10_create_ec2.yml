@@ -55,3 +55,11 @@
     host: "{{ paths['instances[0].public_ip_address'] }}"
     port: 22
     state: started
+
+- name: Install podman on new instance
+  package:
+    name: "podman"
+    state: latest
+  delegate_to: "{{ paths['instances[0].public_ip_address'] }}"
+  become_user: ec2-user
+  become: true

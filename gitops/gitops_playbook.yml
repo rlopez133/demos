@@ -12,4 +12,4 @@
   roles:
   #- rlopez.fest_demo.aws
   - {role: rlopez.fest_demo.aws, when: my_name is defined}
-  - rlopez.fest_demo.app
+  #- rlopez.fest_demo.app
