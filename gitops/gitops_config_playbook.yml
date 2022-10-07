@@ -1,0 +1,15 @@
+- name: Installing configuration in AWS instance
+  hosts: localhost
+  collections:
+    - amazon.aws
+    - rlopez.fest_demo
+    - kubernetes.core
+    - ansible.utils
+    - community.general
+    - containers.podman
+
+  tasks:
+    - name: Run task
+      ansible.builtin.include_role:
+        name: rlopez.fest_demo.aws
+        tasks_from: 25_aws_config.yml
