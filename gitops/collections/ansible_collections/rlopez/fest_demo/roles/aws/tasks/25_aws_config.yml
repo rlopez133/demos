@@ -3,3 +3,4 @@
   ansible.builtin.package:
     name: "podman"
     state: latest
+  become: true
