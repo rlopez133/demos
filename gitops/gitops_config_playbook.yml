@@ -1,5 +1,5 @@
 - name: Installing configuration in AWS instance
-  hosts: localhost
+  hosts: all
   collections:
     - amazon.aws
     - rlopez.fest_demo
