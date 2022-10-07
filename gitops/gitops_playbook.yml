@@ -28,5 +28,4 @@
     - name: Run task
       ansible.builtin.include_role:
         name: rlopez.fest_demo.aws
-        tasks_from: 25_config_aws.yml
-  
+        tasks_from: 25_aws_config.yml 
