@@ -13,3 +13,20 @@
   #- rlopez.fest_demo.aws
   - {role: rlopez.fest_demo.aws, when: my_name is defined}
   #- rlopez.fest_demo.app
+
+- name: Installing configuration in AWS instance
+  hosts: launched
+  collections:
+    - amazon.aws
+    - rlopez.fest_demo
+    - kubernetes.core
+    - ansible.utils
+    - community.general
+    - containers.podman
+
+  tasks:
+    - name: Run task
+      ansible.builtin.include_role:
+        name: rlopez.fest_demo.aws
+        tasks_from: 25_config_aws.yml
+  
