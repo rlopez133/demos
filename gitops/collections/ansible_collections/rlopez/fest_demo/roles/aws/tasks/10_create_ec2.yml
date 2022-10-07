@@ -56,10 +56,10 @@
     port: 22
     state: started
 
-- name: Adding host to group
-  ansible.builtin.add_host:
-    name: "{{ paths['instances[0].public_ip_address'] }}"
-    groups: launched
+#- name: Adding host to group
+#  ansible.builtin.add_host:
+#    name: "{{ paths['instances[0].public_ip_address'] }}"
+#    groups: launched
 
 
 #- name: Install podman on new instance
