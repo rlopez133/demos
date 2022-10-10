@@ -4,7 +4,6 @@
     name: colors
     image: docker.io/mmumshad/simple-webapp-color:latest
     state: started
-    network: host
     ports:
         - "{{ host_port }}:{{ container_port }}"
     env:
