@@ -3,7 +3,6 @@
   collections:
     - amazon.aws
     - rlopez.fest_demo
-    - kubernetes.core
     - ansible.utils
     - community.general
     - containers.podman
