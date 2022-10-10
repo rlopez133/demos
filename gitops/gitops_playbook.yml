@@ -25,7 +25,12 @@
     - containers.podman
 
   tasks:
-    - name: Run task
+    - name: Install podman
       ansible.builtin.include_role:
         name: rlopez.fest_demo.aws
         tasks_from: 25_aws_config.yml 
+
+    - name: Install app
+      ansible.builtin.include_role:
+        name: rlopez.fest_demo.app
+        tasks_from: 10_app_create.yml
