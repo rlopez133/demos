@@ -15,9 +15,13 @@
     instance_type: "m4.large"
   when: vm_choice == "large (2 vCPU, 8 GiB Memory)"
 
+- name: Provide a set-fact for random AWS instance name
+  ansible.builtin.set_fact:
+    random_number: "{{ 100 | random }}"
+
 - name: Launch an AWS EC2 instance
   amazon.aws.ec2_instance:
-    name: "{{ my_name }}"
+    name: "{{ my_name }}-{{ random_number }}"
     key_name: "{{ key }}"
     wait: yes
     state: running
