@@ -5,6 +5,6 @@
     image: docker.io/mmumshad/simple-webapp-color:latest
     state: started
     ports:
-        - "8080:8080"
+        - "{{ host_port }}:{{ container_port }}"
     env:
         APP_COLOR: "{{ color }}"
