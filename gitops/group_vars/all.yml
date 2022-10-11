@@ -1,6 +1,6 @@
 ---
 host_port: "8080"
 container_port: "8080"
-color: "blue"
+color: "red"
 key: "rlopez-key"
 instance_delete: true
