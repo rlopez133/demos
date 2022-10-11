@@ -32,9 +32,11 @@ jobs:
           controller_host: ${{ secrets.CONTROLLER_HOST }}
           controller_username: ${{ secrets.CONTROLLER_USERNAME }}
           controller_password: ${{ secrets.CONTROLLER_PASSWORD }}
-          job_template: "AnsibleFest GitOps Workflow"
+          workflow_template: "AnsibleFest GitOps Workflow"
           controller_project: "AnsibleFest GitOps Project"
           extra_vars: "your_region=us-east-1"
           validate_certs: false
         env:
           pull_request_event: ${{ github.event.pull_request.number }}
+          
+
