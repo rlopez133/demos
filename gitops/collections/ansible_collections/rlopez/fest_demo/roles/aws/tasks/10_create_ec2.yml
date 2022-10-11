@@ -62,7 +62,7 @@
     host: "{{ item.public_ip_address }}"
     port: 22
     state: started
-  loop:
+  with_items:
     - "{{ ec2_node_info.instances }}"
 
 #- name: save the instance variable for following delete job
