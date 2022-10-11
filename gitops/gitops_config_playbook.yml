@@ -17,3 +17,8 @@
       ansible.builtin.include_role:
         name: rlopez.fest_demo.app
         tasks_from: 10_app_create.yml
+
+    - name: Delete aws instance
+      ansible.builtin.include_role:
+        name: rlopez.fest_demo.aws
+        tasks_from: 30_delete_ec2.yml
