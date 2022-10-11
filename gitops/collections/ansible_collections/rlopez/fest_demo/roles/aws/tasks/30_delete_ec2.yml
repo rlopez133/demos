@@ -2,7 +2,8 @@
 - name: Terminate instance
   amazon.aws.ec2_instance:
     state: "absent"
-    instance_ids: "{{ paths['instances[0].instance_id'] }}"
+    #instance_ids: "{{ paths['instances[0].instance_id'] }}"
+    instance_ids: "{{ identified_instance }}"
     region: "{{ region }}"
   ignore_errors: true
   when: instance_delete | bool
