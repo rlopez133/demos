@@ -5,6 +5,7 @@
     instance_ids: "{{ paths['instances[0].instance_id'] }}"
     region: "{{ region }}"
   ignore_errors: true
+  when: instance_delete | bool
 
 - name: Terminate instances that were previously launched
   amazon.aws.ec2_instance:
@@ -12,3 +13,4 @@
     tags:
       Name: "{{ paths['instances[0].tags.Name'] }}"
   ignore_errors: true
+  when: instance_delete | bool
