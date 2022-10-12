@@ -1,14 +1,18 @@
 ---
-- name: Terminate instances that were previously launched
+- name: Terminate instance
   amazon.aws.ec2_instance:
     state: "absent"
-    instance_ids: "{{ paths['instances[0].instance_id'] }}"
+    #instance_ids: "{{ paths['instances[0].instance_id'] }}"
+    instance_ids: "{{ identified_instance }}"
     region: "{{ region }}"
   ignore_errors: true
+  when: instance_delete | bool
+  delegate_to: localhost
 
-- name: Terminate instances that were previously launched
-  amazon.aws.ec2_instance:
-    state: "absent"
-    tags:
-      Name: "{{ paths['instances[0].tags.Name'] }}"
-  ignore_errors: true
+#- name: Terminate instance
+#  amazon.aws.ec2_instance:
+#    state: "absent"
+#    tags:
+#      Name: "{{ paths['instances[0].tags.Name'] }}"
+#  ignore_errors: true
+#  when: instance_delete | bool

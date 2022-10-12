@@ -50,23 +50,29 @@
   ansible.builtin.set_fact:
     paths: "{{ lookup('ansible.utils.to_paths', ec2_node_info) }}"
 
+#- name: save the instance var for following delete job
+#  ansible.builtin.set_stats:
+#    data:
+#      identified_instance: "{{ item.instance_id }}"
+#  with_items:
+#    - "{{ ec2_node_info.instances }}"
+#
+#- name: Wait for SSH to respond
+#  ansible.builtin.wait_for:
+#    host: "{{ item.public_ip_address }}"
+#    port: 22
+#    state: started
+#  with_items:
+#    - "{{ ec2_node_info.instances }}"
+
+- name: save the instance variable for following delete job
+  ansible.builtin.set_stats:
+    data:
+      identified_instance: "{{ paths['instances[0].instance_id'] }}"
+    per_host: false
+
 - name: Wait for SSH to respond
   ansible.builtin.wait_for:
     host: "{{ paths['instances[0].public_ip_address'] }}"
     port: 22
     state: started
-
-#- name: Adding host to group
-#  ansible.builtin.add_host:
-#    name: "{{ paths['instances[0].public_ip_address'] }}"
-#    groups: launched
-
-
-#- name: Install podman on new instance
-#  package:
-#    name: "podman"
-#    state: latest
-#  delegate_to: "{{ paths['instances[0].public_ip_address'] }}"
-#  become_user: ec2-user
-#  become: true
-#  become_method: sudo
