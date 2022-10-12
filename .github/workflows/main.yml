@@ -23,6 +23,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: cat something
+        run: cat ./gitops/group_vars/all.yml
+
       - name: Load the ansible-cloud action
         id: controller_job
         uses: ansible-cloud/aap_controller_action@v3.0.4
