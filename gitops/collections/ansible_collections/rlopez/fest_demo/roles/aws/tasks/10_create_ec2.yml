@@ -69,6 +69,7 @@
   ansible.builtin.set_stats:
     data:
       identified_instance: "{{ paths['instances[0].instance_id'] }}"
+      pub_ip: "{{ paths['instances[0].public_ip_address'] }}"
     per_host: false
 
 - name: Wait for SSH to respond
