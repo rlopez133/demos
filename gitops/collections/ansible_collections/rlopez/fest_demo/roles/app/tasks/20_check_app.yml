@@ -1,0 +1,5 @@
+---
+- name: Check whether app is publically available 
+  ansible.builtin.uri:
+    url: "http://{{ pub_ip }}:{{ container_port }}"
+    status_code: 200

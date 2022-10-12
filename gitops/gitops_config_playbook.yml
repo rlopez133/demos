@@ -17,3 +17,8 @@
       ansible.builtin.include_role:
         name: rlopez.fest_demo.app
         tasks_from: 10_app_create.yml
+    
+    - name: Check app
+      ansible.builtin.include_role:
+        name: rlopez.fest_demo.app
+        tasks_from: 20_check_app.yml

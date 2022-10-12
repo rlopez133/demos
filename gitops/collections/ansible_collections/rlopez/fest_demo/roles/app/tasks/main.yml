@@ -1,3 +1,4 @@
 ---
 # tasks file for app
 - include_tasks: 10_app_create.yml
+- include_tasks: 20_check_app.yml
