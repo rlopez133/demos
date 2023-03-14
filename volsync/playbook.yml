@@ -1,4 +1,3 @@
-To https://github.com/rlopez133/demos.git
 ---
 - name: Create ReplicationSource
   hosts: localhost
