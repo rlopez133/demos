@@ -8,14 +8,14 @@
   - name: Create ReplicationSource
     kubernetes.core.k8s:
       state: present
-      namespace: "{{ my-namespace }}"
+      namespace: "{{ my_namespace }}"
       definition:
         apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
           name: "{{ name }}"
         spec:
-          sourcePVC: "{{ source-pvc }}"
+          sourcePVC: "{{ source_pvc }}"
           trigger:
             schedule: "*/30 * * * *"
           restic:
