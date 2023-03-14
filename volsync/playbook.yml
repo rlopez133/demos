@@ -1,0 +1,30 @@
+To https://github.com/rlopez133/demos.git
+---
+- name: Create ReplicationSource
+  hosts: localhost
+  become: yes
+  gather_facts: no
+
+  tasks:
+  - name: Create ReplicationSource
+    kubernetes.core.k8s:
+      state: present
+      definition:
+        apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: "{{ name }}"
+        spec:
+          sourcePVC: "{{ source-pvc }}"
+          trigger:
+            schedule: "*/30 * * * *"
+          restic:
+            pruneIntervalDays: 14
+            repository: "{{ repo }}"
+            retain:
+              hourly: "{{ hourly }}"
+              daily: "{{ daily }}"
+              weekly: "{{ weekly }}"
+              monthly: "{{ monthlly }}"
+              yearly: "{{ yearly }}"
+            copyMethod: Snapshot
