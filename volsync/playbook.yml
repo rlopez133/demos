@@ -13,7 +13,7 @@
         apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
-          name: "{{ name }}"
+          name: "{{ my_name }}"
         spec:
           sourcePVC: "{{ source_pvc }}"
           trigger:
@@ -25,6 +25,6 @@
               hourly: "{{ hourly }}"
               daily: "{{ daily }}"
               weekly: "{{ weekly }}"
-              monthly: "{{ monthlly }}"
+              monthly: "{{ monthly }}"
               yearly: "{{ yearly }}"
             copyMethod: Snapshot
