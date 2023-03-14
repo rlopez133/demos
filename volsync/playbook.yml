@@ -9,6 +9,7 @@ To https://github.com/rlopez133/demos.git
   - name: Create ReplicationSource
     kubernetes.core.k8s:
       state: present
+      namespace: "{{ my_namespace }}"
       definition:
         apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
