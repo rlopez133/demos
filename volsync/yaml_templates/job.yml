@@ -1,0 +1,9 @@
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  name: ansible-job-volsync
+  namespace: aap
+spec:
+  job_template_name: VolSync Template Test
+  tower_auth_secret: aap2-cred
