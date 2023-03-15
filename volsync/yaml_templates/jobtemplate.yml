@@ -1,0 +1,13 @@
+apiVersion: tower.ansible.com/v1alpha1
+kind: JobTemplate
+metadata:
+  name: volsynctest
+  namespace: aap
+spec:
+  job_template_inventory: ACM Cluster Inventory
+  job_template_name: VolSync Template Test 
+  job_template_playbook: volsync/playbook.yml
+  job_template_project: VolSync Demo
+  tower_auth_secret: aap2-cred
+  job_template_credentials:
+  - "ACM Hub"
