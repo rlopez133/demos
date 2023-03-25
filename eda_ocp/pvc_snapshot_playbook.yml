@@ -1,0 +1,16 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Create a VolumeSnapshot of the PVC
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: snapshot.storage.k8s.io/v1
+          kind: VolumeSnapshot
+          metadata:
+            name: "{{ event.resource.metadata.name }}-snapshot"
+            namespace: "{{ event.resource.metadata.namespace }}"
+          spec:
+            volumeSnapshotClassName: your-snapshot-class
+            source:
+              persistentVolumeClaimName: "{{ event.resource.metadata.name }}"
