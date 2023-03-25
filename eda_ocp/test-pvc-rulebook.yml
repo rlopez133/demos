@@ -1,0 +1,12 @@
+- name: Listen for newly added PVC resources
+  hosts: all
+  sources:
+    - sabre1041.eda.k8s:
+        api_version: v1
+        kind: PersistentVolumeClaim
+        namespace: aap
+  rules:
+    - name: Debug PVC Events
+      condition: event.type == "ADDED"
+      action:
+        debug:

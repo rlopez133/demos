@@ -1,16 +1,26 @@
 - hosts: localhost
   connection: local
   tasks:
-    - name: Create a VolumeSnapshot of the PVC
+    - name: Wait for PVC to become Bound
+      kubernetes.core.k8s_info:
+        kind: PersistentVolumeClaim
+        namespace: "{{ event.resource.metadata.namespace }}"
+        name: "{{ event.resource.metadata.name }}"
+      register: pvc_info
+      until: pvc_info | json_query('resources[0].status.phase') == "Bound"
+      retries: 6
+      delay: 5
+      failed_when: (pvc_info | json_query('resources[0].status.phase') | default('')) != "Bound" and retries_left == 1
+
+    - name: Create VolumeSnapshot
       kubernetes.core.k8s:
         state: present
         definition:
-          apiVersion: snapshot.storage.k8s.io/v1
+          apiVersion: snapshot.storage.k8s.io/v1beta1
           kind: VolumeSnapshot
           metadata:
             name: "{{ event.resource.metadata.name }}-snapshot"
             namespace: "{{ event.resource.metadata.namespace }}"
           spec:
-            volumeSnapshotClassName: your-snapshot-class
             source:
               persistentVolumeClaimName: "{{ event.resource.metadata.name }}"

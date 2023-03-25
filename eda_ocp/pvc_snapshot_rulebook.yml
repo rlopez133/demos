@@ -1,4 +1,4 @@
-- name: Listen for newly added PVC resources
+- name: Listen for newly added PVC resources and create a snapshot
   hosts: all
   sources:
     - sabre1041.eda.k8s:
@@ -6,8 +6,10 @@
         kind: PersistentVolumeClaim
         namespace: aap
   rules:
-    - name: Create PVC Snapshot
+    - name: Create Snapshot
       condition: event.type == "ADDED"
       action:
         run_playbook:
-          name: pvc_snapshot_playbook.yml
+          name: pvc-snapshot-playbook.yml
+          extra_vars:
+            event: "{{ event }}"

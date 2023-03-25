@@ -1,0 +1,5 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - ansible.builtin.debug:
+        msg: "PVC '{{ event.resource.metadata.name }}' in namespace '{{ event.resource.metadata.namespace }}' has been created."
