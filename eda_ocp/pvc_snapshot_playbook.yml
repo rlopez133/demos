@@ -12,9 +12,9 @@
             namespace: "{{ event.resource.metadata.namespace }}"
             name: "{{ event.resource.metadata.name }}"
           register: pvc_status
-          until: pvc_status.resources[0].status.phase == "Bound"
-          retries: 30
-          delay: 2
+          until: pvc_status.resources | default([]) | length > 0 and pvc_status.resources[0].status.phase == "Bound"
+          retries: 5
+          delay: 10
 
         - name: Create VolumeSnapshot
           kubernetes.core.k8s:
@@ -31,6 +31,15 @@
           when: pvc_status.resources[0].status.phase == "Bound"
 
       rescue:
+
+        - name: event debug
+          ansible.builtin.debug:
+            var: pvc_status
+
+        - name: Debug status
+          ansible.builtin.debug:
+            msg: "{{ pvc_status.resources[0].status.phase }}"
+
         - name: Handle PVC not Bound
           ansible.builtin.debug:
             msg: "Status 'Bound' was never achieved for the Persistent Volume Claim {{ event.resource.metadata.name }}"
