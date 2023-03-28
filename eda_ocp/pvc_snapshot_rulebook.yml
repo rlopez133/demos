@@ -10,6 +10,6 @@
       condition: event.type == "ADDED"
       action:
         run_playbook:
-          name: pvc-snapshot-playbook.yml
+          name: pvc_snapshot_playbook.yml
           extra_vars:
             event: "{{ event }}"
