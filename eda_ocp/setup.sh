@@ -6,6 +6,9 @@ pip3 install kubernetes
 # Install Requests
 pip3 install requests
 
+# Install Kubernetes plugin
+ansible-galaxy collection install sabre1041.eda
+
 # Download OC client
 wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.13.0-rc.0/openshift-client-linux.tar.gz
 
