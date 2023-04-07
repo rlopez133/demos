@@ -3,13 +3,13 @@
   hosts: localhost
   tasks:
     - name: Generate private key
-      openssl_privatekey:
+      community.crypto.openssl_privatekey:
         path: /tmp/private.key
         type: RSA
         size: 2048
 
     - name: Generate self-signed certificate
-      openssl_certificate:
+      community.crypto.openssl_certificate:
         path: /tmp/cert.crt
         privatekey_path: /tmp/private.key
         provider:
