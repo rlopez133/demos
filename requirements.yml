@@ -4,3 +4,4 @@ collections:
 - name: amazon.aws
 - name: containers.podman
 - name: sabre1041.eda
+- name: community.crypto

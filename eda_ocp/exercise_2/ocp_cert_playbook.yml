@@ -1,0 +1,76 @@
+---
+- name: Configure Let's Encrypt SSL certificate for OpenShift app
+  hosts: localhost
+  gather_facts: no
+  vars:
+    domain_name: "rocket-chat-rocketchat.apps.rogerocp1.demoredhat.com"
+    namespace: "rocketchat"  # Replace with your OpenShift namespace
+    app_name: "rocket-chat"  # Replace with your app's name
+    app_service_name: "rocket-chat"  # Replace with your app's service name
+    app_target_port: "3000"  # Replace with your app's target port
+    wildcard_policy: "None"
+    email: "demo@myexample.com"  # Replace with your email address
+
+  tasks:
+    - name: Create ClusterIssuer for Let's Encrypt
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: ClusterIssuer
+          metadata:
+            name: letsencrypt
+          spec:
+            acme:
+              server: https://acme-v02.api.letsencrypt.org/directory
+              email: "{{ email }}"
+              privateKeySecretRef:
+                name: letsencrypt-account-key
+              solvers:
+              - http01:
+                  ingress:
+                    class: cert-manager
+
+    - name: Create Let's Encrypt certificate
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: Certificate
+          metadata:
+            name: myapp-certificate
+            namespace: rocketchat
+          spec:
+            secretName: myapp-tls
+            issuerRef:
+              name: letsencrypt
+              kind: ClusterIssuer
+            dnsNames:
+            - foobar.apps.my.example.com
+            commonName: foobar.apps.my.example.com
+
+
+    - name: Create Route with cert-manager for SSL certificate
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: route.openshift.io/v1
+          kind: Route
+          metadata:
+            name: "{{ app_name }}"
+            namespace: "{{ namespace }}"
+            annotations:
+              cert-manager.io/issuer: "letsencrypt"
+              cert-manager.io/issuer-kind: "ClusterIssuer"
+          spec:
+            host: "{{ domain_name }}"
+            to:
+              kind: Service
+              name: "{{ app_service_name }}"
+              weight: 100
+            port:
+              targetPort: "{{ app_target_port }}"
+            wildcardPolicy: "{{ wildcard_policy }}"
+            tls:
+              termination: edge
+              insecureEdgeTerminationPolicy: Redirect
