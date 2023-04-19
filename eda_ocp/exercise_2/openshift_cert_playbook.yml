@@ -1,0 +1,86 @@
+---
+- name: Configure app with Cert Manager
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    issuer_name: letsencrypt
+    issuer_namespace: "{{ event.resource.metadata.namespace }}"
+    issuer_email: contact@foobar.io
+    cert_name: "{{ event.resource.metadata.name }}-auth-cert"
+    cert_namespace: "{{ event.resource.metadata.namespace }}"
+    cert_dnsNames:
+      - "{{ event.resource.spec.host }}"
+    cert_secretName: "{{ event.resource.metadata.name }}-auth-cert"
+    route_name: "{{ event.resource.metadata.name }}"
+    route_namespace: "{{ event.resource.metadata.namespace }}"
+  tasks:
+    - name: Create Issuer
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: Issuer
+          metadata:
+            name: "{{ issuer_name }}"
+            namespace: "{{ issuer_namespace }}"
+          spec:
+            acme:
+              email: "{{ issuer_email }}"
+              preferredChain: ''
+              privateKeySecretRef:
+                name: "{{ issuer_name }}-key"
+              server: 'https://acme-v02.api.letsencrypt.org/directory'
+              solvers:
+                - http01:
+                    ingress: {}
+
+    - name: Create Certificate
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: Certificate
+          metadata:
+            name: "{{ cert_name }}"
+            namespace: "{{ cert_namespace }}"
+          spec:
+            dnsNames: "{{ cert_dnsNames }}"
+            duration: 2160h0m0s
+            issuerRef:
+              kind: Issuer
+              name: "{{ issuer_name }}"
+            privateKey:
+              algorithm: RSA
+              encoding: PKCS1
+              size: 2048
+            renewBefore: 360h0m0s
+            secretName: "{{ cert_secretName }}"
+
+    - name: Patch Route with Cert Manager Annotations
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          kind: Route
+          apiVersion: route.openshift.io/v1
+          metadata:
+            name: "{{ route_name }}"
+            namespace: "{{ route_namespace }}"
+            annotations:
+              cert-manager.io/alt-names: "{{ cert_dnsNames[0] }}"
+              cert-manager.io/certificate-name: "{{ cert_name }}"
+              cert-manager.io/common-name: "{{ cert_dnsNames[0] }}"
+              cert-manager.io/issuer: "{{ issuer_name }}"
+              cert-manager.io/issuer-kind: Issuer
+              cert-manager.io/issuer-name: "{{ issuer_name }}"
+              cert-utils-operator.redhat-cop.io/certs-from-secret: "{{ cert_secretName }}"
+          spec:
+            host: "{{ cert_dnsNames[0] }}"
+            to:
+              kind: Service
+              name: "{{ route_name }}"
+              weight: 100
+            port:
+              targetPort: "{{ event.resource.spec.port.targetPort }}"
+            tls:
+              termination: edge
+              insecureEdgeTerminationPolicy: Redirect
+            wildcardPolicy: "{{ event.resource.spec.wildcardPolicy }}"

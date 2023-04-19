@@ -1,0 +1,14 @@
+- name: Listen for newly created Routse
+  hosts: all
+  sources:
+    - sabre1041.eda.k8s:
+        api_version: v1
+        kind: Route
+  rules:
+    - name: Patch a Route
+      condition: event.type == "ADDED"
+      action:
+        run_playbook:
+          name: openshift_cert_playbook.yml
+          extra_vars:
+            event: "{{ event }}"
