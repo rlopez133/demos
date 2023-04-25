@@ -4,7 +4,6 @@
     - sabre1041.eda.k8s:
         api_version: v1
         kind: PersistentVolumeClaim
-        namespace: aap
   rules:
     - name: Create Snapshot
       condition: event.type == "ADDED"
