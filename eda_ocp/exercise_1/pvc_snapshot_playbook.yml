@@ -4,7 +4,6 @@
   connection: local
   gather_facts: yes
   collections:
-    - ansible.utils
     - community.general
   tasks:
     - name: Block to handle PVC and VolumeSnapshot
