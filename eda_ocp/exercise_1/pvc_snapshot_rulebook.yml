@@ -8,7 +8,9 @@
     - name: Create Snapshot
       condition: event.type == "ADDED"
       action:
-        run_playbook:
-          name: pvc_snapshot_playbook.yml
-          extra_vars:
-            event: "{{ event }}"
+        run_job_template:
+          name: EDA-OpenShift-Exercise1
+          organization: Default
+          job_args:
+            extra_vars:
+              event: "{{ event }}"
