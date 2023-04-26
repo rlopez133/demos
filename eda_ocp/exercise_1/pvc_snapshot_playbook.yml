@@ -2,7 +2,7 @@
 - name: Ansible Playbook for PVC and VolumeSnapshot
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: Block to handle PVC and VolumeSnapshot
       block:
