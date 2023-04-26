@@ -64,5 +64,9 @@
     
     - name: Debug message for VolumeSnapshot name and namespace
       ansible.builtin.debug:
+        msg: "Snapshot Name: {{ volumesnapshot_details.metdata.name }} Namespace: {{ volumesnapshot_details.metadata.namespace }}"
+    
+    - name: Debug message for VolumeSnapshot name and namespace
+      ansible.builtin.debug:
         msg: "Name: {{ item.metadata.name }}, Namespace: {{ item.metadata.namespace }}"
       loop: "{{ volumesnapshot_details.resources }}"
