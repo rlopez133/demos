@@ -5,6 +5,7 @@
   gather_facts: yes
   collections:
     - ansible.utils
+    - community.general
   tasks:
     - name: Block to handle PVC and VolumeSnapshot
       block:
@@ -61,7 +62,13 @@
     - name: Debug message for VolumeSnapshot name and namespace
       ansible.builtin.debug:
         var: paths
-    
+
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "Name: {{ item.name }}, Namespace: {{ item.namespace }}"
+      loop: "{{ volumesnapshot_details | community.general.json_query('resources[*].metadata') }}"
+
+ 
     - name: Debug message for VolumeSnapshot name and namespace
       ansible.builtin.debug:
         msg: "Snapshot Name: {{ volumesnapshot_details.metdata.name }} Namespace: {{ volumesnapshot_details.metadata.namespace }}"
