@@ -54,26 +54,9 @@
         namespace: "{{ event.resource.metadata.namespace }}"
       register: volumesnapshot_details
 
-    - name: set fact
-      ansible.builtin.set_fact:
-        paths: "{{ lookup('ansible.utils.to_paths', volumesnapshot_details) }}"
-
-
     - name: Debug message for VolumeSnapshot name and namespace
-      ansible.builtin.debug:
-        var: paths
-
-    - name: Debug
       ansible.builtin.debug:
         msg: "Name: {{ item.name }}, Namespace: {{ item.namespace }}"
       loop: "{{ volumesnapshot_details | community.general.json_query('resources[*].metadata') }}"
-
- 
-    - name: Debug message for VolumeSnapshot name and namespace
-      ansible.builtin.debug:
-        msg: "Snapshot Name: {{ volumesnapshot_details.metdata.name }} Namespace: {{ volumesnapshot_details.metadata.namespace }}"
-    
-    - name: Debug message for VolumeSnapshot name and namespace
-      ansible.builtin.debug:
-        msg: "Name: {{ item.metadata.name }}, Namespace: {{ item.metadata.namespace }}"
-      loop: "{{ volumesnapshot_details.resources }}"
+      loop_control:
+        label: "Name: {{ item.name }}, Namespace: {{ item.namespace }}"
