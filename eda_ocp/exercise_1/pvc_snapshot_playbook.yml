@@ -43,3 +43,15 @@
         - name: Handle PVC not Bound
           ansible.builtin.debug:
             msg: "Status 'Bound' was never achieved for the Persistent Volume Claim {{ event.resource.metadata.name }}"
+
+    - name: Get VolumeSnapshot details
+      kubernetes.core.k8s_info:
+        api_version: snapshot.storage.k8s.io/v1
+        kind: VolumeSnapshot
+        namespace: "{{ event.resource.metadata.namespace }}"
+      register: volumesnapshot_details
+    
+    - name: Debug message for VolumeSnapshot details
+      ansible.builtin.debug:
+        msg: "{{ volumesnapshot_details }}"
+
