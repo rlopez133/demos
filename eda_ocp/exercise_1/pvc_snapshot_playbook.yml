@@ -51,7 +51,7 @@
         namespace: "{{ event.resource.metadata.namespace }}"
       register: volumesnapshot_details
     
-    - name: Debug message for VolumeSnapshot details
+    - name: Debug message for VolumeSnapshot name and namespace
       ansible.builtin.debug:
-        msg: "{{ volumesnapshot_details }}"
-
+        msg: "Name: {{ item.metadata.name }}, Namespace: {{ item.metadata.namespace }}"
+      loop: "{{ volumesnapshot_details.resources }}"
