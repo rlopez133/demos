@@ -11,8 +11,8 @@
         - name: Wait for Persistent Volume Claim to be Bound
           kubernetes.core.k8s_info:
             kind: PersistentVolumeClaim
-            namespace: "{{ ansible_eda.event.resource.metadata.namespace }}"
-            name: "{{ ansible_eda.event.resource.metadata.name }}"
+            namespace: "{{ event.resource.metadata.namespace }}"
+            name: "{{ event.resource.metadata.name }}"
           register: pvc_status
           until: pvc_status.resources | default([]) | length > 0 and pvc_status.resources[0].status.phase == "Bound"
           retries: 5
@@ -25,11 +25,11 @@
               apiVersion: snapshot.storage.k8s.io/v1
               kind: VolumeSnapshot
               metadata:
-                name: "{{ ansible_eda.event.resource.metadata.name }}-snapshot-{{ ansible_date_time.date }}"
-                namespace: "{{ ansible_eda.event.resource.metadata.namespace }}"
+                name: "{{ event.resource.metadata.name }}-snapshot-{{ ansible_date_time.date }}"
+                namespace: "{{ event.resource.metadata.namespace }}"
               spec:
                 source:
-                  persistentVolumeClaimName: "{{ ansible_eda.event.resource.metadata.name }}"
+                  persistentVolumeClaimName: "{{ event.resource.metadata.name }}"
           when: pvc_status.resources[0].status.phase == "Bound"
 
       rescue:
@@ -44,13 +44,13 @@
 
         - name: Handle PVC not Bound
           ansible.builtin.debug:
-            msg: "Status 'Bound' was never achieved for the Persistent Volume Claim {{ ansible_eda.event.resource.metadata.name }}"
+            msg: "Status 'Bound' was never achieved for the Persistent Volume Claim {{ event.resource.metadata.name }}"
 
     - name: Get VolumeSnapshot details
       kubernetes.core.k8s_info:
         api_version: snapshot.storage.k8s.io/v1
         kind: VolumeSnapshot
-        namespace: "{{ ansible_eda.event.resource.metadata.namespace }}"
+        namespace: "{{ event.resource.metadata.namespace }}"
       register: volumesnapshot_details
 
     - name: Debug message for VolumeSnapshot name and namespace
