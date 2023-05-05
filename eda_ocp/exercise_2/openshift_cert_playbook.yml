@@ -5,15 +5,15 @@
   gather_facts: no
   vars:
     issuer_name: letsencrypt
-    issuer_namespace: "{{ event.resource.metadata.namespace }}"
+    issuer_namespace: "{{ ansible_eda.event.resource.metadata.namespace }}"
     issuer_email: contact@foobar.io
-    cert_name: "{{ event.resource.metadata.name }}-auth-cert"
-    cert_namespace: "{{ event.resource.metadata.namespace }}"
+    cert_name: "{{ ansible_eda.event.resource.metadata.name }}-auth-cert"
+    cert_namespace: "{{ ansible_eda.event.resource.metadata.namespace }}"
     cert_dnsNames:
-      - "{{ event.resource.spec.host }}"
-    cert_secretName: "{{ event.resource.metadata.name }}-auth-cert"
-    route_name: "{{ event.resource.metadata.name }}"
-    route_namespace: "{{ event.resource.metadata.namespace }}"
+      - "{{ ansible_eda.event.resource.spec.host }}"
+    cert_secretName: "{{ ansible_eda.event.resource.metadata.name }}-auth-cert"
+    route_name: "{{ ansible_eda.event.resource.metadata.name }}"
+    route_namespace: "{{ ansible_eda.event.resource.metadata.namespace }}"
   tasks:
     - name: Create Issuer
       kubernetes.core.k8s:
@@ -79,8 +79,8 @@
               name: "{{ route_name }}"
               weight: 100
             port:
-              targetPort: "{{ event.resource.spec.port.targetPort }}"
+              targetPort: "{{ ansible_eda.event.resource.spec.port.targetPort }}"
             tls:
               termination: edge
               insecureEdgeTerminationPolicy: Redirect
-            wildcardPolicy: "{{ event.resource.spec.wildcardPolicy }}"
+            wildcardPolicy: "{{ ansible_eda.event.resource.spec.wildcardPolicy }}"
