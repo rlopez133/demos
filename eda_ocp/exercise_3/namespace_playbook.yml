@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   vars:
-    ns: "{{ ansible_eda.event.resource.metadata.namespace }}"
+    ns: "{{ ansible_eda.event.resource.metadata.name }}"
     requests_cpu: '1'
     limits_cpu: '2'
     requests_memory: '1Gi'
