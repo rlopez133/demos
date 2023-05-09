@@ -20,7 +20,8 @@
         definition:
           spec:
             hard:
-              limits.cpu: "{{ limits_cpu }}"
-              limits.memory: "{{ limits_memory }}"
-              requests.cpu: "{{ requests_cpu }}"
-              requests.memory: "{{ requests_memory }}"
+              "limits.cpu": "{{ limits_cpu }}"
+              "limits.memory": "{{ limits_memory }}"
+              "requests.cpu": "{{ requests_cpu }}"
+              "requests.memory": "{{ requests_memory }}"
+
