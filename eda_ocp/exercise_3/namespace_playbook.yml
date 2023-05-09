@@ -1,0 +1,26 @@
+---
+- name: Set resource quotas for a Kubernetes cluster for a namespace
+  hosts: localhost
+  gather_facts: no
+  vars:
+    ns: "{{ ansible_eda.event.resource.metadata.namespace }}"
+    requests_cpu: '1'
+    limits_cpu: '2'
+    requests_memory: '1Gi'
+    limits_memory: '2Gi'
+
+  tasks:
+    - name: Set resource quotas
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: ResourceQuota
+        namespace: "{{ ns }}"
+        name: resource-quota
+        state: present
+        definition:
+          spec:
+            hard:
+              limits.cpu: "{{ limits_cpu }}"
+              limits.memory: "{{ limits_memory }}"
+              requests.cpu: "{{ requests_cpu }}"
+              requests.memory: "{{ requests_memory }}"
