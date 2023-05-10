@@ -11,6 +11,3 @@
         run_job_template:
           name: EDA-OpenShift-Exercise1
           organization: Default
-          job_args:
-            extra_vars:
-              event: "{{ event }}"
