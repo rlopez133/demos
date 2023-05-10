@@ -8,7 +8,6 @@
     - name: Patch a Route
       condition: event.type == "ADDED"
       action:
-        run_playbook:
-          name: openshift_cert_playbook.yml
-          extra_vars:
-            event: "{{ event }}"
+        run_job_template:
+          name: EDA-OpenShift-Exercise2
+          organization: Default
