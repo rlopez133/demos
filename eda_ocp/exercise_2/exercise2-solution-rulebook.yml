@@ -1,4 +1,4 @@
-- name: Listen for newly created Routse
+- name: Listen for newly created Routes
   hosts: all
   sources:
     - sabre1041.eda.k8s:
