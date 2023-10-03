@@ -3,5 +3,5 @@ controller_templates:
  - name: My Example Job Template
    execution_environment: Default execution environment
    instance_groups:
- 	- default
+    - default
    inventory: Demo Inventory
