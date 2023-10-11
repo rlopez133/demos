@@ -1,0 +1,35 @@
+---
+- name: Verbose Output Playbook
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Display current directory
+      command: pwd
+      register: result
+      changed_when: false
+
+    - name: List all files and directories (including hidden)
+      command: ls -la
+      register: result
+      changed_when: false
+
+    - name: Check Disk Space
+      command: df -h
+      register: result
+      changed_when: false
+
+    - name: Display OS Details
+      command: uname -a
+      register: result
+      changed_when: false
+
+    - name: Intentional Failure
+      command: "exit 1"
+      ignore_errors: true
+
+    - name: Echo a long string
+      command: "echo 'This is a very very very very very very very long string that might not look good in the standard stdout format'"
+      register: result
+      changed_when: false
+
