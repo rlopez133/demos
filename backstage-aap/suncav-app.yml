@@ -1,0 +1,56 @@
+---
+- name: Deploy Suncav App on Kubernetes
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Deploy Suncav App Deployment
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: suncav-app-deployment
+          spec:
+            selector:
+              matchLabels:
+                app: suncav-app
+            replicas: 1
+            template:
+              metadata:
+                labels:
+                  app: suncav-app
+              spec:
+                containers:
+                  - name: suncav-app
+                    image: quay.io/acme_corp/eda-app:suncavanaugh
+                    ports:
+                      - containerPort: 8080
+
+    - name: Deploy Suncav App Service
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: suncav-app-service
+          spec:
+            selector:
+              app: suncav-app
+            ports:
+              - port: 8080
+                targetPort: 8080
+
+    - name: Deploy Suncav App Route
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: route.openshift.io/v1
+          kind: Route
+          metadata:
+            name: suncav-app-route
+          spec:
+            to:
+              kind: Service
+              name: suncav-app-service
+            port:
+              targetPort: 8080
+
