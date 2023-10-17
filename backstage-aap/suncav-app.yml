@@ -3,6 +3,14 @@
   hosts: localhost
   gather_facts: no
   tasks:
+    - name: Create Suncav Namespace
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: suncav
+
     - name: Deploy Suncav App Deployment
       kubernetes.core.k8s:
         definition:
@@ -10,6 +18,7 @@
           kind: Deployment
           metadata:
             name: suncav-app-deployment
+            namespace: suncav
           spec:
             selector:
               matchLabels:
@@ -33,6 +42,7 @@
           kind: Service
           metadata:
             name: suncav-app-service
+            namespace: suncav
           spec:
             selector:
               app: suncav-app
@@ -47,6 +57,7 @@
           kind: Route
           metadata:
             name: suncav-app-route
+            namespace: suncav
           spec:
             to:
               kind: Service
