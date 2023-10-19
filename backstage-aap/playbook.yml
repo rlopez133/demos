@@ -16,7 +16,7 @@
 
     - name: Apply Kubernetes Resources
       kubernetes.core.k8s:
-        src: "{{ repository.path }}/demos/backstage-aap/rocketchat/{{ item }}"
+        src: "{{ repository.path }}/backstage-aap/rocketchat/{{ item }}"
         namespace: rocketchat
       loop:
         - 1-pvc.yml
