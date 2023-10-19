@@ -1,0 +1,25 @@
+---
+- name: Deploy Rocketchat to OpenShift
+  hosts: localhost
+  gather_facts: no
+  vars:
+    resource_files:
+      - demos/backstage-aap/rocketchat/1-pvc.yml
+      - demos/backstage-aap/rocketchat/2-deployment-mongo.yml
+      - demos/backstage-aap/rocketchat/3-service-mongo.yml
+      - demos/backstage-aap/rocketchat/4-deployment-rocket.yml
+      - demos/backstage-aap/rocketchat/5-service-rocket.yml
+      - demos/backstage-aap/rocketchat/6-route.yml
+
+  tasks:
+    - name: Apply Kubernetes Resources
+      kubernetes.core.k8s:
+        src: "{{ item }}"
+      loop: "{{ resource_files }}"
+
+    - name: Pause for a short duration
+      pause:
+        seconds: 30
+      loop: "{{ resource_files }}"
+      loop_control:
+        label: "Pause after applying {{ item }}"
