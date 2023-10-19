@@ -19,20 +19,9 @@
         src: "{{ repository.path }}/backstage-aap/rocketchat/{{ item }}"
         namespace: rocketchat
       loop:
-        - 1-pvc.yml
-        - 2-deployment-mongo.yml
-        - 3-service-mongo.yml
-        - 4-deployment-rocket.yml
-        - 5-service-rocket.yml
-        - 6-route.yml
-
-    - name: Pause for a short duration after each resource application
-      pause:
-        seconds: 10
-      loop:
-        - 1-pvc.yml
-        - 2-deployment-mongo.yml
-        - 3-service-mongo.yml
-        - 4-deployment-rocket.yml
-        - 5-service-rocket.yml
-        - 6-route.yml
+        - 1-deployment-mongo.yml
+        - 2-deployment-rocket.yml
+        - 3-pvc.yml
+        - 4-route.yml
+        - 5-service-mongo.yml
+        - 6-service-rocket.yml
