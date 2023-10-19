@@ -1,8 +1,13 @@
 ---
-- name: Deploy Resources to OpenShift
-  hosts: localhost
-  gather_facts: no
+- hosts: localhost
+  gather_facts: true
   tasks:
+    - name: Retrieve a repository from a distant location and make it available locally
+      ansible.scm.git_retrieve:
+        origin:
+          url: git@github.com:rlopez133/demos.git
+      register: repository
+
     - name: Create rocketchat Namespace
       kubernetes.core.k8s:
         kind: Namespace
@@ -11,24 +16,23 @@
 
     - name: Apply Kubernetes Resources
       kubernetes.core.k8s:
-        src: "{{ item }}"
+        src: "{{ repository.path }}/demos/backstage-aap/rocketchat/{{ item }}"
         namespace: rocketchat
       loop:
-        - demos/backstage-aap/rocketchat/1-pvc.yml
-        - demos/backstage-aap/rocketchat/2-deployment-mongo.yml
-        - demos/backstage-aap/rocketchat/3-service-mongo.yml
-        - demos/backstage-aap/rocketchat/4-deployment-rocket.yml
-        - demos/backstage-aap/rocketchat/5-service-rocket.yml
-        - demos/backstage-aap/rocketchat/6-route.yml
+        - 1-pvc.yml
+        - 2-deployment-mongo.yml
+        - 3-service-mongo.yml
+        - 4-deployment-rocket.yml
+        - 5-service-rocket.yml
+        - 6-route.yml
 
     - name: Pause for a short duration after each resource application
       pause:
-        seconds: 15
+        seconds: 10
       loop:
-        - demos/backstage-aap/rocketchat/1-pvc.yml
-        - demos/backstage-aap/rocketchat/2-deployment-mongo.yml
-        - demos/backstage-aap/rocketchat/3-service-mongo.yml
-        - demos/backstage-aap/rocketchat/4-deployment-rocket.yml
-        - demos/backstage-aap/rocketchat/5-service-rocket.yml
-        - demos/backstage-aap/rocketchat/6-route.yml
-
+        - 1-pvc.yml
+        - 2-deployment-mongo.yml
+        - 3-service-mongo.yml
+        - 4-deployment-rocket.yml
+        - 5-service-rocket.yml
+        - 6-route.yml
