@@ -11,3 +11,6 @@ spec:
     name: rocket-chat
     weight: 100
   wildcardPolicy: None
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
