@@ -1,0 +1,13 @@
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleProject
+metadata:
+  name: servicenow-project
+spec:
+  repo: https://github.com/rlopez133/demos.git
+  branch: main
+  name: 'Service Now Project'
+  organization: Default
+  description: 'Service Now Demo Project'
+  scm_type: 'git'
+  connection_secret: aapaccess

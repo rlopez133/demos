@@ -1,0 +1,28 @@
+---
+- name: Automate SNOW 
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - servicenow.itsm
+  vars:
+    short_description: 'test'
+    description: 'test'
+
+  tasks:
+    - name: Create incident
+      servicenow.itsm.incident:
+        state: new
+        caller: "{{ username }}"
+        short_description: "{{ short_description }}"
+        description: |
+            "{{ description }}"
+        impact: low
+        urgency: low
+      register: new_incident
+
+    - set_fact:
+        incident_number_cached: "{{ new_incident.record.number }}"
+        cacheable: true
+
+    - debug:
+        msg: "A new incident has been created: {{ new_incident.record.number }}"

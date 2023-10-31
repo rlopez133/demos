@@ -1,0 +1,13 @@
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: JobTemplate
+metadata:
+  name: servicenow-jobtemplate
+spec:
+  connection_secret: aapaccess
+  job_template_name: 'Service Now Incident Creation'
+  job_template_project: 'Service Now Project'
+  job_template_playbook: 'backstage-aap/servicenow.yml'
+  job_template_inventory: 'Demo Inventory'
+  job_template_credentials: 'Service Now Credentials'
+  job_template_scm_branch: 'https://github.com/rlopez133/demos.git'
