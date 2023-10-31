@@ -5,8 +5,11 @@
   collections:
     - servicenow.itsm
   vars:
-    short_description: 'test'
-    description: 'test'
+    username: "{{ lookup('env', 'SN_USERNAME') }}"
+    password: "{{ lookup('env', 'SN_PASSWORD') }}"
+    instance: "{{ lookup('env', 'SN_HOST') }}"
+    short_description: 
+    description:
 
   tasks:
     - name: Create incident
