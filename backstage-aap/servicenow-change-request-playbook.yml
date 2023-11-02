@@ -1,0 +1,40 @@
+---
+- name: Automate SNOW Change Request
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - servicenow.itsm
+  vars:
+    username: "{{ lookup('env', 'SN_USERNAME') }}"
+    password: "{{ lookup('env', 'SN_PASSWORD') }}"
+    instance: "{{ lookup('env', 'SN_HOST') }}"
+    short_description:
+    description:
+
+  tasks:
+    - name: Create a change request
+      servicenow.itsm.change_request:
+        instance:
+          host: "{{ instance }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+        type: standard
+        state: new
+        requested_by: "{{ username }}"
+        short_description: "{{ short_description }}"
+        description: |
+            "{{ description }}"
+        priority: moderate
+        risk: low
+        impact: low
+       register: change_request
+
+    - debug:
+        var: change_request
+
+#    - set_fact:
+#        incident_number_cached: "{{ new_incident.record.number }}"
+#        cacheable: true
+#
+#    - debug:
+#        msg: "A new incident has been created: {{ new_incident.record.number }}"
