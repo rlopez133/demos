@@ -29,12 +29,12 @@
         impact: low
       register: change_request
 
-    - debug:
-        var: change_request
+#    - debug:
+#        var: change_request
 
 #    - set_fact:
 #        incident_number_cached: "{{ new_incident.record.number }}"
 #        cacheable: true
 #
-#    - debug:
-#        msg: "A new incident has been created: {{ new_incident.record.number }}"
+    - debug:
+        msg: "A new change request has been created: {{ change_request.record.number }}"
