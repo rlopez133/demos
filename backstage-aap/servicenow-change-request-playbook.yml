@@ -36,5 +36,7 @@
 #        incident_number_cached: "{{ new_incident.record.number }}"
 #        cacheable: true
 #
-    - debug:
-        msg: "A new change request has been created: {{ change_request.record.number }}"
+
+    - name: Get change request record number
+     ansible.builtin.debug:
+       msg: "A new change request has been created: {{ change_request.record.number }}"
