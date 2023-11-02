@@ -27,7 +27,7 @@
         priority: moderate
         risk: low
         impact: low
-       register: change_request
+      register: change_request
 
     - debug:
         var: change_request
