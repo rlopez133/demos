@@ -38,5 +38,5 @@
 #
 
     - name: Get change request record number
-     ansible.builtin.debug:
-       msg: "A new change request has been created: {{ change_request.record.number }}"
+      ansible.builtin.debug:
+        msg: "A new change request has been created: {{ change_request.record.number }}"
