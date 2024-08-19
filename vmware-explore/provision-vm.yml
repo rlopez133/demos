@@ -1,0 +1,21 @@
+---
+- name: Create VMs
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Provision a VM from template
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_name: "{{ vm_name }}"
+        provision_vm_template: "{{ vm_template }}"
+        provision_vm_hostname: "{{ vcenter_hostname }}"
+        provision_vm_username: "{{ vcenter_username }}"
+        provision_vm_password: "{{ vcenter_password }}"
+        provision_vm_validate_certs: "{{ vcenter_validate_certs }}"
+        provision_vm_folder: "{{ folder }}"
+        provision_vm_datacenter: "{{ datacenter }}"
+        provision_vm_cluster: "{{ cluster }}"
+        provision_vm_hardware:
+          hotadd_cpu: true
+          hotadd_memory: true
