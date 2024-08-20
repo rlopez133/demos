@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAMP Stack - Powered by Ansible</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0e0e0e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: #1c1c1c;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideIn 1s ease-out;
+        }
+
+        .banner {
+            background-color: #ee0000;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .banner h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .banner p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .info-box {
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            text-align: left;
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-box h2 {
+            font-size: 1.5em;
+            color: #ee0000;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #bbbbbb;
+            font-size: 1em;
+        }
+
+        .powered-by {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .powered-by img {
+            width: 200px;
+            margin-left: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1>LAMP Stack Installed!</h1>
+            <p>Your server is running a fully operational LAMP stack.</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <h2>RHEL</h2>
+                <p>The backbone of your server, <strong>Red Hat Enterprise Linux (RHEL)</strong> provides a stable and secure environment.</p>
+            </div>
+
+            <div class="info-box">
+                <h2>Apache</h2>
+                <p>The powerful web server that delivers your content to the world.</p>
+            </div>
+
+            <div class="info-box">
+                <h2>MySQL</h2>
+                <p>Reliable database management for your application’s data needs.</p>
+            </div>
+
+            <div class="info-box">
+                <h2>PHP</h2>
+                <p>Dynamic scripting language that makes your web applications interactive.</p>
+            </div>
+        </div>
+
+        <div class="powered-by">
+            <p>Installed via</p>
+            <img src="https://www.redhat.com/rhdc/managed-files/Logo-Red_Hat-Ansible_Automation_Platform-A-Standard-RGB_0.svg"
+                alt="Ansible Automation Platform Logo">
+        </div>
+    </div>
+</body>
+
+</html>
+

@@ -1,0 +1,53 @@
+---
+- name: Install LAMP Stack on RHEL 9
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Execute rhc connect command
+      ansible.builtin.command: "rhc connect --organization {{ org_id }} --activation-key {{ key }}"
+      no_log: true
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Start and enable Apache
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Install MariaDB
+      ansible.builtin.dnf:
+        name: mariadb-server
+        state: present
+
+    - name: Start and enable MariaDB
+      ansible.builtin.systemd:
+        name: mariadb
+        state: started
+        enabled: true
+
+    - name: Install PHP and common modules
+      ansible.builtin.dnf:
+        name:
+          - php
+          - php-mysqlnd
+          - php-fpm
+          - php-opcache
+          - php-gd
+          - php-xml
+          - php-mbstring
+        state: present
+
+    - name: Install index.html
+      ansible.builtin.template:
+        src: "templates/index.html.j2"
+        dest: "/var/www/html/index.html"
+
+    - name: Restart Apache to load PHP modules
+      ansible.builtin.systemd:
+        name: httpd
+        state: restarted
