@@ -1,0 +1,20 @@
+---
+- name: Hot-Add CPU and Memory to VMs
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Hot-add CPU and Memory to a VM
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_name: "{{ vm_name }}"
+        provision_vm_hostname: "{{ vcenter_hostname }}"
+        provision_vm_username: "{{ vcenter_username }}"
+        provision_vm_password: "{{ vcenter_password }}"
+        provision_vm_validate_certs: "{{ vcenter_validate_certs }}"
+        provision_vm_hardware:
+          memory_mb: "{{ memory }}"
+          num_cpus: "{{ cpu }}"
+          hotadd_cpu: true
+          hotadd_memory: true
