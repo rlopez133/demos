@@ -16,6 +16,10 @@
         provision_vm_folder: "{{ folder }}"
         provision_vm_datacenter: "{{ datacenter }}"
         provision_vm_cluster: "{{ cluster }}"
+        provision_vm_networks:
+          - name: "segment-sandbox-29vwg"
+            device_type: "vmxnet3"
+            type: "dhcp"
         provision_vm_hardware:
           hotadd_cpu: true
           hotadd_memory: true
