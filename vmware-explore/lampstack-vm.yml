@@ -4,9 +4,9 @@
   become: true
 
   tasks:
-#    - name: Execute rhc connect command
-#      ansible.builtin.command: "rhc connect --organization {{ org_id }} --activation-key {{ key }}"
-#      no_log: true
+    - name: Execute rhc connect command
+      ansible.builtin.command: "rhc connect --organization {{ org_id }} --activation-key {{ key }}"
+      no_log: true
 
     - name: Install Apache
       ansible.builtin.dnf:
