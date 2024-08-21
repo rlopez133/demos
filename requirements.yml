@@ -5,7 +5,3 @@ collections:
 - name: containers.podman
 - name: sabre1041.eda
 - name: community.crypto
-- name: vmware.vmware
-- name: cloud.vmware_ops
-- name: vmware.vmware_rest
-- name: community.vmware
