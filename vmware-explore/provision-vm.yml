@@ -16,6 +16,7 @@
         provision_vm_folder: "{{ folder }}"
         provision_vm_datacenter: "{{ datacenter }}"
         provision_vm_cluster: "{{ cluster }}"
+        provision_vm_state: "poweredon"
         provision_vm_hardware:
           hotadd_cpu: true
           hotadd_memory: true
