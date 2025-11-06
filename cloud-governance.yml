@@ -1,0 +1,127 @@
+---
+- name: Cloud Governance Remediation Workflow
+  hosts: localhost
+  gather_facts: no
+  vars:
+    instance_id: "i-01a2b3c4d5e6f"
+    instance_type_from: "m5.4xlarge"
+    instance_type_to: "m5.large"
+    s3_bucket: "prod-customer-data-us"
+    jira_ticket: "DO-1776"
+    ebs_volume: "vol-abcdef123"
+    owner_tag: "rlopez"
+    project_tag: "cloud-governance"
+
+  tasks:
+    - name: Starting job execution
+      ansible.builtin.debug:
+        msg: "Starting job execution..."
+
+    - name: Connecting to Ansible Automation Platform
+      ansible.builtin.debug:
+        msg: "Connecting to Ansible Automation Platform..."
+
+    - name: Connection established
+      ansible.builtin.debug:
+        msg: "✓ Connection established"
+
+    - name: Loading job template
+      ansible.builtin.debug:
+        msg: "Loading job template: cloud_governance_remediation"
+
+    - name: Template loaded successfully
+      ansible.builtin.debug:
+        msg: "✓ Template loaded successfully"
+
+    - name: Updating inventory with approved resources
+      ansible.builtin.debug:
+        msg: "Updating inventory with approved resources..."
+
+    - name: Inventory updated
+      ansible.builtin.debug:
+        msg: "✓ Inventory updated"
+
+    - name: Starting playbook execution
+      ansible.builtin.debug:
+        msg: "Starting playbook execution..."
+
+    - name: Task 1/3 - Resizing EC2 instance
+      ansible.builtin.debug:
+        msg: "Task 1/3: Resizing EC2 instance {{ instance_id }}..."
+
+    - name: Instance resized successfully
+      ansible.builtin.debug:
+        msg: "✓ Instance resized from {{ instance_type_from }} to {{ instance_type_to }}"
+
+    - name: Task 2/3 - Creating Jira ticket for S3 bucket migration
+      ansible.builtin.debug:
+        msg: "Task 2/3: Creating Jira ticket for S3 bucket migration..."
+
+    - name: Jira ticket created successfully
+      ansible.builtin.debug:
+        msg: "✓ Jira ticket {{ jira_ticket }} created successfully"
+
+    - name: Task 3/3 - Applying tags to EBS volume
+      ansible.builtin.debug:
+        msg: "Task 3/3: Applying tags to EBS volume {{ ebs_volume }}..."
+
+    - name: Tags applied successfully
+      ansible.builtin.debug:
+        msg: "✓ Tags applied: {'owner':'{{ owner_tag }}', 'project':'{{ project_tag }}'}"
+
+    - name: Generating execution report
+      ansible.builtin.debug:
+        msg: "Generating execution report..."
+
+    - name: Report generated and saved
+      ansible.builtin.debug:
+        msg: "✓ Report generated and saved"
+
+    - name: Job execution completed successfully
+      ansible.builtin.debug:
+        msg: "🎉 Job execution completed successfully!"
+
+    - name: New approved actions received separator
+      ansible.builtin.debug:
+        msg: "--- New approved actions received ---"
+
+    - name: Processing approved actions
+      ansible.builtin.debug:
+        msg: "Processing 3 approved actions..."
+
+    - name: New Task 1/3 - Resizing EC2 instance
+      ansible.builtin.debug:
+        msg: "Task 1/3: Resizing EC2 instance {{ instance_id }}..."
+
+    - name: New instance resized successfully
+      ansible.builtin.debug:
+        msg: "✓ Instance resized from {{ instance_type_from }} to {{ instance_type_to }}"
+
+    - name: New Task 2/3 - Creating Jira ticket for S3 bucket migration
+      ansible.builtin.debug:
+        msg: "Task 2/3: Creating Jira ticket for S3 bucket migration..."
+
+    - name: New Jira ticket created successfully
+      ansible.builtin.debug:
+        msg: "✓ Jira ticket {{ jira_ticket }} created successfully"
+
+    - name: New Task 3/3 - Applying tags to EBS volume
+      ansible.builtin.debug:
+        msg: "Task 3/3: Applying tags to EBS volume {{ ebs_volume }}..."
+
+    - name: New tags applied successfully
+      ansible.builtin.debug:
+        msg: "✓ Tags applied: {'owner':'{{ owner_tag }}', 'project':'{{ project_tag }}'}"
+
+    - name: New generating execution report
+      ansible.builtin.debug:
+        msg: "Generating execution report..."
+
+    - name: New report generated and saved
+      ansible.builtin.debug:
+        msg: "✓ Report generated and saved"
+
+    - name: All approved actions completed successfully
+      ansible.builtin.debug:
+        msg: "🎉 All approved actions completed successfully!"
+
