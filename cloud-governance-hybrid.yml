@@ -13,38 +13,6 @@
     project_tag: "cloud-governance"
 
   tasks:
-    - name: Starting job execution
-      debug:
-        msg: "Starting job execution..."
-
-    - name: Connecting to Ansible Automation Platform
-      debug:
-        msg: "Connecting to Ansible Automation Platform..."
-
-    - name: Connection established
-      debug:
-        msg: "✓ Connection established"
-
-    - name: Loading job template
-      debug:
-        msg: "Loading job template: cloud_governance_remediation"
-
-    - name: Template loaded successfully
-      debug:
-        msg: "✓ Template loaded successfully"
-
-    - name: Updating inventory with approved resources
-      debug:
-        msg: "Updating inventory with approved resources..."
-
-    - name: Inventory updated
-      debug:
-        msg: "✓ Inventory updated"
-
-    - name: Starting playbook execution
-      debug:
-        msg: "Starting playbook execution..."
-
     - name: Task 1/3 - Resizing virtual machine
       debug:
         msg: "Task 1/3: Resizing virtual machine {{ vm_id }}..."
