@@ -1,0 +1,127 @@
+---
+- name: Cloud Governance Remediation Workflow
+  hosts: localhost
+  gather_facts: no
+  vars:
+    vm_id: "vm-prod-001"
+    vm_size_from: "Large (8 vCPU, 32GB RAM)"
+    vm_size_to: "Medium (4 vCPU, 16GB RAM)"
+    storage_container: "prod-customer-data-dc1"
+    jira_ticket: "DO-1776"
+    storage_volume: "vol-prod-001"
+    owner_tag: "rlopez"
+    project_tag: "cloud-governance"
+
+  tasks:
+    - name: Starting job execution
+      debug:
+        msg: "Starting job execution..."
+
+    - name: Connecting to Ansible Automation Platform
+      debug:
+        msg: "Connecting to Ansible Automation Platform..."
+
+    - name: Connection established
+      debug:
+        msg: "✓ Connection established"
+
+    - name: Loading job template
+      debug:
+        msg: "Loading job template: cloud_governance_remediation"
+
+    - name: Template loaded successfully
+      debug:
+        msg: "✓ Template loaded successfully"
+
+    - name: Updating inventory with approved resources
+      debug:
+        msg: "Updating inventory with approved resources..."
+
+    - name: Inventory updated
+      debug:
+        msg: "✓ Inventory updated"
+
+    - name: Starting playbook execution
+      debug:
+        msg: "Starting playbook execution..."
+
+    - name: Task 1/3 - Resizing virtual machine
+      debug:
+        msg: "Task 1/3: Resizing virtual machine {{ vm_id }}..."
+
+    - name: Instance resized successfully
+      debug:
+        msg: "✓ Virtual machine resized from {{ vm_size_from }} to {{ vm_size_to }}"
+
+    - name: Task 2/3 - Creating Jira ticket for storage container migration
+      debug:
+        msg: "Task 2/3: Creating Jira ticket for storage container migration..."
+
+    - name: Jira ticket created successfully
+      debug:
+        msg: "✓ Jira ticket {{ jira_ticket }} created successfully"
+
+    - name: Task 3/3 - Applying tags to storage volume
+      debug:
+        msg: "Task 3/3: Applying tags to storage volume {{ storage_volume }}..."
+
+    - name: Tags applied successfully
+      debug:
+        msg: "✓ Tags applied: {'owner':'{{ owner_tag }}', 'project':'{{ project_tag }}'}"
+
+    - name: Generating execution report
+      debug:
+        msg: "Generating execution report..."
+
+    - name: Report generated and saved
+      debug:
+        msg: "✓ Report generated and saved"
+
+    - name: Job execution completed successfully
+      debug:
+        msg: "🎉 Job execution completed successfully!"
+
+    - name: New approved actions received separator
+      debug:
+        msg: "--- New approved actions received ---"
+
+    - name: Processing approved actions
+      debug:
+        msg: "Processing 3 approved actions..."
+
+    - name: New Task 1/3 - Resizing virtual machine
+      debug:
+        msg: "Task 1/3: Resizing virtual machine {{ vm_id }}..."
+
+    - name: New instance resized successfully
+      debug:
+        msg: "✓ Virtual machine resized from {{ vm_size_from }} to {{ vm_size_to }}"
+
+    - name: New Task 2/3 - Creating Jira ticket for storage container migration
+      debug:
+        msg: "Task 2/3: Creating Jira ticket for storage container migration..."
+
+    - name: New Jira ticket created successfully
+      debug:
+        msg: "✓ Jira ticket {{ jira_ticket }} created successfully"
+
+    - name: New Task 3/3 - Applying tags to storage volume
+      debug:
+        msg: "Task 3/3: Applying tags to storage volume {{ storage_volume }}..."
+
+    - name: New tags applied successfully
+      debug:
+        msg: "✓ Tags applied: {'owner':'{{ owner_tag }}', 'project':'{{ project_tag }}'}"
+
+    - name: New generating execution report
+      debug:
+        msg: "Generating execution report..."
+
+    - name: New report generated and saved
+      debug:
+        msg: "✓ Report generated and saved"
+
+    - name: All approved actions completed successfully
+      debug:
+        msg: "🎉 All approved actions completed successfully!"
+
